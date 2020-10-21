@@ -1,14 +1,26 @@
+//importando o essencial
 const express =require("express");
 const app = express();
 const bodyParser = require('body-parser');
 // Conecção com o banco: 
 // const connection = require("./database/database.js");
 
+//importanto os controladores 
+const categoriesController = require("./categories/CategoriesController");
+const articlesController = require("./articles/ArticlesController");
+
+
+//chamando os arquivos para criar as tabelas
+/*
+const Article = require("./articles/Articles");
+const Category = require("./categories/Category");
+*/
+
 
 //View engine serve para funcionar o ejs
 app.set('View engine','ejs');
 
-//static
+//static 
 app.use(express.static('public'));
 
 
@@ -28,6 +40,12 @@ connection
 
 */
 
+//ROTAS
+app.use("/",categoriesController);
+app.use("/",articlesController);
+
+
+
 app.get("/",(req,res)=>{
   //  res.send("bem vindo ao gulag");
     res.render("index.ejs");
@@ -35,7 +53,7 @@ app.get("/",(req,res)=>{
 });
 
 
-
+//LOCAL HOST PARA O SERVIDOR
 
 app.listen(1010,()=>{
     console.log("O server rodou");
