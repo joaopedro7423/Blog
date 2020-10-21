@@ -3,7 +3,7 @@ const router = express.Router();
 const Category = require("./Category");
 const slugify = require("slugfy");
 
-//criar nova categoria
+//criar e salvar nova categoria
 router.get("/admin/categories/new",(req,res)=>{
   res.render("admin/categories/new.ejs");
 });
@@ -56,7 +56,7 @@ router.post("/categories/delete",(req,res)=>{
     }
 });
 
-//editar a categoria
+//editar e salvar categoria
 
 router.get("/admin/categories/edit/:id",(req,res)=>{
     var id = req.params.id;

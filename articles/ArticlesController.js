@@ -1,13 +1,17 @@
 const express = require("express");
 const router = express.Router();
+const Category = require("../categories/Category");
 
 
 router.get("/articles",(req,res)=>{
     res.send("ROTA DE ARTIGOS");
 });
 
-router.get("/admin/aticles/new",(req,res)=>{
-    res.send("ROTA PARA UM NOVO ARTIGO");
+router.get("/admin/articles/new",(req,res)=>{
+    Category.findAll().then(categories =>{
+        res.render("admin/articles/new.ejs",{categories:categories});
+    })
+
 });
 
 module.exports = router;
