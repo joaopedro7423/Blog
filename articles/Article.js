@@ -3,7 +3,7 @@ const connection = require("../database/database");
 const Category = require("../categories/Category");
 
 //criação da tabela no banco, etc
-const Article = connection.define('categories',{
+const Article = connection.define('articles',{
    title:{
        type: Sequelize.STRING,
        allowNull: false

@@ -12,7 +12,7 @@ const articlesController = require("./articles/ArticlesController");
 
 //chamando os arquivos para criar as tabelas
 
-const Article = require("./articles/Articles");
+const Article = require("./articles/Article");
 const Category = require("./categories/Category");
 
 
@@ -48,8 +48,11 @@ app.use("/",articlesController);
 
 app.get("/",(req,res)=>{
   //  res.send("bem vindo ao gulag");
-    res.render("index.ejs");
+  Article.findAll().then(articles =>{
+    res.render("index.ejs",{articles: articles});
 
+  });
+    
 });
 
 
