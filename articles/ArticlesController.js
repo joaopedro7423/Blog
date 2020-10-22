@@ -124,7 +124,7 @@ router.get("/articles/page/:num",(req,res)=>{
         offset: offset
     }).then(articles =>{
 
-
+        
 
         var next;
         if(offset +4 >= articles.count){
@@ -142,7 +142,7 @@ router.get("/articles/page/:num",(req,res)=>{
             res.render("admin/articles/page.ejs",{result: result, categories: categories})
         })
 
-        res.json(result);
+       // res.json(result);
     })
 
 });
