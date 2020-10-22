@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Category = require("./Category");
-const slugify = require("slugfy");
+const slugify = require("slugify");
 
 //criar e salvar nova categoria
 router.get("/admin/categories/new",(req,res)=>{
@@ -15,7 +15,7 @@ router.post("/categories/save",(req,res)=>{
             title: title,
             slug: slugify(title)
         }).then(()=>{
-            res.redirect("/");
+            res.redirect("/admin/categories");
         })
 
     }else{
@@ -67,7 +67,7 @@ router.get("/admin/categories/edit/:id",(req,res)=>{
 
     Category.findByPk(id).then(category =>{
         if(category != undefined){
-            res.render("admin/categories/edit",{category: category});
+            res.render("admin/categories/edit.ejs",{category: category});
         }else{
             res.redirect("/admin/categories");
         }

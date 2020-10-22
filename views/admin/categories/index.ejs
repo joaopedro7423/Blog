@@ -4,7 +4,7 @@
 <div class="container">
     <hr>
     <h2>Categorias</h2>
-    <a class="btn btn-sucsses" href="/admin/categories/new">Criar nova Categoria</a>
+    <a class="btn btn-success" href="/admin/categories/new">Criar nova Categoria</a>
     <hr>
 
     <table class="table table-bordered">
@@ -27,7 +27,7 @@
                 <th>
                     <a href="/admin/categories/edit/<%= category.id %>" class="btn btn-warning" >Editar</a>    
                    
-                   <form method="POST" action="/categories/delete" style="display: inline;" onsubmit="confirmarDelecao(event,this)">
+                   <form method="POST" action="/categories/delete" style="display: inline;" onsubmit="confirmarDelecao(event, this)">
                     <input type="hidden" name="id" value="<%= category.id %>">
                     <button class="btn btn-danger" >Deletar</button>    
                     </form>
@@ -50,10 +50,10 @@
 <script>
 function confirmarDelecao(event, form){
     event.preventDefault();
-    confirm("Deseja realmente deletar esta categoria?");
+    var decision = confirm("Deseja realmente deletar esta categoria?");
     if(decision){
         form.submit();
-       // console.log("Deletar!");
+      // console.log("Deletar!");
     }
 }
 
