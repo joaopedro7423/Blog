@@ -48,13 +48,71 @@ app.use("/",articlesController);
 
 app.get("/",(req,res)=>{
   //  res.send("bem vindo ao gulag");
-  Article.findAll().then(articles =>{
-    res.render("index.ejs",{articles: articles});
+  Article.findAll({
+    //mostrar do mais recente dos artigos
+    order:[['id','DESC']]
 
+  }).then(articles =>{
+
+      Category.findAll().then(categories =>{
+
+        res.render("index.ejs",{articles: articles, categories: categories});
+
+      });
+
+    
   });
     
 });
 
+
+// para ler os artigos controler e rota
+app.get("/:slug",(req,res)=>{
+  var slug = req.params.slug;
+  Article.findOne({
+    where:{
+      slug: slug
+    }
+  }).then(article => {
+    if(article != undefined){
+      Category.findAll().then(categories =>{
+
+        res.render("article.ejs",{article: article, categories: categories});
+
+      });
+    }else{
+      res.redirect("/");
+    }
+  }).catch( err => {
+    res.redirect("/");
+  })
+
+  });
+
+
+//Filtrando artigos pela categoria 
+app.get("/category/:slug",(req,res)=>{
+  var slug = req.params.slug;
+    Category.findOne({
+      where:{
+        slug: slug
+      },
+      include:[{model: Article}]
+    }).then(category =>{
+      if(category != undefined){
+
+        Category.findAll().then(categories =>{
+          res.render("index.ejs",{articles: category.articles, categories: categories })
+        })
+
+      }else{
+        res.redirect("/");
+      }
+    }).catch( err => {
+      res.redirect("/");
+    })
+
+});
 
 //LOCAL HOST PARA O SERVIDOR
 
