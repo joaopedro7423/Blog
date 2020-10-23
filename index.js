@@ -8,12 +8,13 @@ const bodyParser = require('body-parser');
 //importanto os controladores 
 const categoriesController = require("./categories/CategoriesController");
 const articlesController = require("./articles/ArticlesController");
-
+const usersController = require("./users/UsersController");
 
 //chamando os arquivos para criar as tabelas
 
 const Article = require("./articles/Article");
 const Category = require("./categories/Category");
+const Users = require("./users/User");
 
 
 
@@ -43,6 +44,7 @@ connection
 //ROTAS
 app.use("/",categoriesController);
 app.use("/",articlesController);
+app.use("/", usersController)
 
 
 
@@ -115,7 +117,6 @@ app.get("/category/:slug",(req,res)=>{
 });
 
 //LOCAL HOST PARA O SERVIDOR
-
 app.listen(1010,()=>{
     console.log("O server rodou");
 });
