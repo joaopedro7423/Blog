@@ -2,6 +2,7 @@
 const express =require("express");
 const app = express();
 const bodyParser = require('body-parser');
+const session = require("express-session");
 // Conecção com o banco: 
  const connection = require("./database/database.js");
 
@@ -20,6 +21,11 @@ const Users = require("./users/User");
 
 //View engine serve para funcionar o ejs
 app.set('View engine','ejs');
+
+//Sessions coloque alguma coisa aleatoria no secret
+app.use(session({
+  secret:"seupainasceupelado", cookie: {maxAge:30000000}
+}));
 
 //static 
 app.use(express.static('public'));
@@ -46,7 +52,28 @@ app.use("/",categoriesController);
 app.use("/",articlesController);
 app.use("/", usersController)
 
+app.get("/session",(req,res)=>{
+  req.session.treinamento = "Formação Node.js"
+  req.session.ano = 2020
+  req.session.email = "joaopedro7423@hotmail.com"
+  req.session.user = {
+      username: "João",
+      email: "email@email.com",
+      id: 10
+  }
+  res.send("Sessão gerada!!");
 
+});
+
+app.get("/leitura",(req,res)=>{
+
+  res.json({
+    treinamento: req.session.treinamento,
+    ano: req.session.ano,
+    email: req.session.email,
+    user: req.session.user
+  })
+});
 
 app.get("/",(req,res)=>{
   //  res.send("bem vindo ao gulag");

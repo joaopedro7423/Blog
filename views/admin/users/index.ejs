@@ -1,0 +1,48 @@
+<%- include('../../partials/header'); %>
+<%- include('../../partials/navbar'); %>
+<body>
+    
+<div class="container">
+    <hr>
+    <h2>Usuários</h2>
+    <a class="btn btn-success" href="/admin/users/create">Novo Usuário</a>
+    <hr>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>E-mail</th>
+                <th>Senha</th>
+                
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(user => { %>
+            <tr>
+                <th><%= user.id %></th>
+                <th><%= user.email %></th>
+                <th><%= user.password%> </th>
+                <th>
+                   <a href="" class="btn btn-warning" >Editar</a>   
+                   
+                   <form method="POST" action="" style="display: inline;" onsubmit="confirmarDelecao(event, this)">
+                    <input type="hidden" name="id" value="">
+                    <button class="btn btn-danger" >Deletar</button>    
+                    </form>
+                </th>
+            </tr>
+            <% }) %>
+        </tbody>
+
+    </table>
+
+
+</div>
+
+
+
+</body>
+
+<%- include('../../partials/footer'); %>
